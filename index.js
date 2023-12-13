@@ -2,6 +2,7 @@ import express from 'express'
 import dbConnection from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import linksRoutes from './routes/linksRoutes.js'
 
 
 //Creando Servidor
@@ -19,11 +20,10 @@ app.use(express.json())
  //Rutas de acceso
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/links', linksRoutes)
 
- app.use('/', (req, res) => {
-    res.send('Hola Mundo')
 
- })
+
 
  app.listen(port, () => {
     console.log(`Servidor corriendo desde el puerto ${port}`)

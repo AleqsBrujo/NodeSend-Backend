@@ -1,6 +1,6 @@
 import Users from '../models/UsersSchema.js'
-import bcrypt from 'bcrypt'
 import { validationResult } from 'express-validator'
+import { hashPass } from '../helpers/hashPass.js'
 
 
 const newUser = async(req, res) => {    
@@ -24,9 +24,8 @@ const newUser = async(req, res) => {
         
         const newUser = await new Users(req.body)
 
-        //Encriptando pass
-        const salt = bcrypt.genSaltSync(10)
-        newUser.password = bcrypt.hashSync( password, salt)
+        //Encriptando pass        
+        newUser.password = await hashPass( password )
 
         await newUser.save()
         
