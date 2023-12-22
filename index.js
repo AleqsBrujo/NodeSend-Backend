@@ -3,6 +3,7 @@ import dbConnection from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import linksRoutes from './routes/linksRoutes.js'
+import filesRoutes from './routes/filesRoutes.js'
 
 
 //Creando Servidor
@@ -21,6 +22,7 @@ app.use(express.json())
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/links', linksRoutes)
+app.use('/api/files', filesRoutes)
 
 
 

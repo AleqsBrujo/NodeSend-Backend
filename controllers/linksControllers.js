@@ -51,4 +51,40 @@ export const newLink = async(req, res, next) => {
 
 }
 
+export const getLink = async (req, res, next) => {
+
+    const { url } = req.params
+
+    //Verificar si existe enlace
+    const link = await Links.findOne({ url })
+
+    if(!link){
+        res.status(404).json({msg: 'El enlace ingresado nó existe!'})
+        return 
+    }
+
+    res.json({file: link.name})
+
+    const {downloads, name} = link
+    //Eliminar archivo si los downloads son 1
+    if(downloads === 1){
+        //Eliminar archivo
+        console.log('Solo una descarga//')
+        req.file = name
+        
+        //Eliminar entrada de la DB
+        await Links.findOneAndDelete(req.params.url)
+        next()
+
+        
+    } else {
+        console.log('Aun quedan descargas.....')
+        link.downloads --
+        
+    }
+
+    
+
+}
+
 
